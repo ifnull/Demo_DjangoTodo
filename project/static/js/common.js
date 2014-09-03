@@ -8,13 +8,8 @@ require.config({
    packages: [
 
         {
-            location: 'vendor/built',
-            name: 'built'
-        },
-        
-        {
-            location: 'vendor/famous',
-            name: 'famous'
+            location: 'app',
+            name: 'app'
         },
 
         {
@@ -30,11 +25,20 @@ require.config({
         },
 
         {
+            location: 'vendor/built',
+            name: 'built'
+        },
+
+        {
+            location: 'vendor/famous',
+            name: 'famous'
+        },
+
+        {
             location: 'vendor/require/hbs',
             name: 'hbs',
             main:'hbs'
         }
-
     ],
 
     map: {
@@ -44,13 +48,12 @@ require.config({
         },
     },
 
-
   hbs: {
         templateExtension : 'html',
         // if disableI18n is `true` it won't load locales and the i18n helper
         // won't work as well.
         disableI18n : true,
-        helperDirectory: 'shared/hbs'
+        helperDirectory: 'app/shared/hbs'
   },
 
   shim : {
@@ -58,6 +61,10 @@ require.config({
     'backbone': {
         'deps': ['jquery', 'underscore'],
         'exports': 'Backbone'
+    },
+
+    'backbone/localstorage' : {
+      'deps' : ['backbone']
     },
 
     'backbone/stickit' : {
@@ -74,9 +81,8 @@ require.config({
         'deps': ['jquery', 'underscore', 'backbone'],
         'exports': 'Marionette'
     }
-
   },
-  
+
   // introduced in requirejs 2.1.11, helps Backbone along.
   // http://jrburke.com/2014/02/16/requirejs-2.1.11-released/
   wrapShim: true,

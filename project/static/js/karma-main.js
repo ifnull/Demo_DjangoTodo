@@ -9,7 +9,7 @@ var tests = [
 ];
 
 requirejs.config({
-    baseUrl: '/base/project/static/js',
+    baseUrl: '/base/src/static/js',
 
     paths:{
         'tests': 'specs',

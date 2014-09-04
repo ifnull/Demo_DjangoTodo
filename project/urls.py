@@ -1,9 +1,10 @@
 from django.conf import settings
 from django.conf.urls import include, patterns, url
-from django.conf.urls.static import static
 from django.contrib import admin
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic import TemplateView
+from tastypie import api
+import todo.api as todo_resources
+
 
 admin.autodiscover()
 
@@ -15,6 +16,13 @@ urlpatterns = patterns(
     # Homepage
     (r'^$', TemplateView.as_view(template_name='index.html')),
 )
+
+# Setup v1 API
+v1_api = api.Api(api_name='v1')
+v1_api.register(
+    todo_resources.TodoResource()
+)
+urlpatterns += patterns('', (r'^api/', include(v1_api.urls)))
 
 #used to show static assets out of the collected-static
 if getattr(settings, 'SERVE_STATIC', False) and settings.SERVE_STATIC:

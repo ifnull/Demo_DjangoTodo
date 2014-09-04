@@ -62,7 +62,7 @@ def runserver():
         warn_only=True
     ):
         local("pkill -9 -f '[m]anage.py runserver'")
-    local('nohup ./manage.py runserver [::]:8000 &')
+    local('nohup ./manage.py runserver --verbosity 3 --traceback [::]:8000 &')
 
 
 @task

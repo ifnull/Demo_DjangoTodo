@@ -1,26 +1,22 @@
 define(function( require, exports, module ){
 
 var backbone = require('backbone');
-require('backbone/localstorage');
 
 var Todo = backbone.Model.extend({
-
-    localStorage: new backbone.LocalStorage('todos-backbone'),
 
     defaults: {
         title: '',
         completed: false,
-        created: 0
+        created: null
     },
 
-    initialize: function () {
-        if (this.isNew()) {
-            this.set('created', Date.now());
-        }
+    url: function() {
+        var id = this.id || '';
+        return "/api/v1/todo/"+id;
     },
 
     toggle: function () {
-        return this.set('completed', !this.get('completed'));
+        return this.save('completed', !this.get('completed'), {patch: true});
     }
 });
 

@@ -7,7 +7,9 @@ var Todo = require('../models/todo').Todo;
 var Todos  =  backbone.Collection.extend({
     model: Todo,
 
-    localStorage: new backbone.LocalStorage('todos-backbone'),
+    meta: {},
+
+    url: "/api/v1/todo",
 
     getCompleted: function () {
       return this.where({completed: true});
@@ -15,6 +17,11 @@ var Todos  =  backbone.Collection.extend({
 
     getActive: function () {
       return this.where({completed: false});
+    },
+
+    parse: function(response) {
+        this.meta = response.meta;
+        return response.objects;
     },
 
     comparator: 'created'
